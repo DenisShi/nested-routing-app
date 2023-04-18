@@ -7,12 +7,23 @@ import { faUser } from '@fortawesome/free-solid-svg-icons'
 import { faBuilding } from '@fortawesome/free-solid-svg-icons'
 
 import { useParams } from 'react-router-dom'
-import { useSelector } from 'react-redux'
+import { fetchUsers } from '../../reducers/usersSlice'
+import { useEffect } from 'react'
+import {useSelector, useDispatch} from 'react-redux'
 
-function User ( ) {
+function User () {
+   const dispatch = useDispatch()
    const { username } = useParams()
    const users = useSelector((state) => state.users.users)
    const currentUser = users.find((user) => user.username === username)
+
+   useEffect(() => {
+      dispatch(fetchUsers());
+    }, [dispatch]);
+
+   if (!currentUser) {
+      return <h2>User not found.</h2>
+   }
 
    return (
       <ul className={styles.container}>
