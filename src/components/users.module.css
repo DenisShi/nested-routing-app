@@ -1,0 +1,12 @@
+.container {
+  border: 1px solid black;
+  width: 800px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.item {
+  border: 1px solid green;
+  cursor: pointer;
+  font-size: 18px;
+}
