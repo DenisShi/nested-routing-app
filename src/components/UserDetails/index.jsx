@@ -6,16 +6,18 @@ import { faLocationDot } from '@fortawesome/free-solid-svg-icons'
 import { faUser } from '@fortawesome/free-solid-svg-icons'
 import { faBuilding } from '@fortawesome/free-solid-svg-icons'
 
-import { useParams } from 'react-router-dom'
 import { fetchUsers } from '../../reducers/usersSlice'
 import { useEffect } from 'react'
 import {useSelector, useDispatch} from 'react-redux'
+import { Link, useParams, Outlet } from "react-router-dom";
+
+import {selectUsers} from '../../reducers/reducer'
 
 function User () {
    const dispatch = useDispatch()
-   const { username } = useParams()
-   const users = useSelector((state) => state.users.users)
-   const currentUser = users.find((user) => user.username === username)
+   const { id } = useParams()
+   const users = useSelector(selectUsers)
+    const currentUser = users.find((user) => user.id == id)
 
    useEffect(() => {
       dispatch(fetchUsers());
@@ -26,10 +28,21 @@ function User () {
    }
 
    return (
+      <>
+      <nav>
+         <ul className={styles.navigation}>
+            <li><Link to={`/${id}`}>User</Link></li>
+            <li><Link to='albums'>Albums</Link></li>
+            <li><Link to='todos'>Todos</Link></li>
+            <li><Link to='posts'>Posts</Link></li>
+         </ul>
+      </nav>
+      <Outlet />
+
       <ul className={styles.container}>
 
          <h2>{currentUser.name}</h2>
-
+            
          <li  className={styles.user}>
          <FontAwesomeIcon icon={faEnvelope} color={'#2296f3'}/>
          <div className={styles.info}> 
@@ -72,6 +85,7 @@ function User () {
          </div>
          </li>
       </ul>
+      </>
    )
 }
 
