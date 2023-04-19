@@ -1,0 +1,21 @@
+.navigation {
+  display: flex;
+  flex-direction: row;
+  margin: 0 auto;
+  justify-content: center;
+}
+
+.navigation li {
+  width: 100px;
+  font-size: 20px;
+  padding: 10px;
+  opacity: 0.6;
+  text-align: center;
+  border: 3px solid transparent;
+}
+
+.navigation li:hover,
+.navigation li:active {
+  opacity: 1;
+  border-top: 3px solid orange;
+}
